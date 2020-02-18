@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-xs-12">
+    <button
+      [routerLink]="['new']"
+      class="btn btn-success">New Bet</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <app-bet-item
+      *ngFor="let bet of bets; let i = index"
+      [bet]="bet"
+      [index]="i"></app-bet-item>
+  </div>
+</div>

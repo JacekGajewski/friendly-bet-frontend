@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-xs-12">
+    <!--    <img-->
+    <!--      [src]="recipe.imagePath"-->
+    <!--      alt="{{recipe.name}}"-->
+    <!--      class="img-responsive"-->
+    <!--      style="max-height: 300px">-->
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs 12">
+    <h1>{{bet.title}}</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+        Dropdown button
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" [routerLink]="['edit']">EdEit</a>
+        <a class="dropdown-item" (click)="deleteBet()">Delete</a>
+      </div>
+    </div>
+    <!--    <div-->
+    <!--      class="btn-group"-->
+    <!--      appDropdown>-->
+    <!--      <button-->
+    <!--        type="button"-->
+    <!--        class="btn btn-primary dropdown-toggle">-->
+    <!--        Manage Recipe <span class="caret"></span>-->
+    <!--      </button>-->
+    <!--      <ul class="dropdown-menu">-->
+    <!--        <li><a style="cursor:pointer;">Add Ingredients</a></li>-->
+    <!--        <li><a-->
+    <!--          [routerLink]="['edit']"-->
+    <!--          style="cursor:pointer;" >Edit Recipe</a></li>-->
+    <!--        <li><a style="cursor:pointer;" >Delete Recipe</a></li>-->
+    <!--      </ul>-->
+    <!--    </div>-->
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    {{bet.value}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="list-group">
+      <!--      <li-->
+      <!--        class="list-group-item"-->
+      <!--        *ngFor="let ingredient of recipe.ingredients">-->
+      <!--        {{ingredient.name}} | {{ingredient.amount}}-->
+      <!--      </li>-->
+    </ul>
+    <div>
+    </div>
+  </div>
+</div>
