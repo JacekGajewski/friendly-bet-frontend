@@ -11,7 +11,8 @@ import { BetDetailComponent } from './bets/bet-detail/bet-detail.component';
 import { BetEditComponent } from './bet-edit/bet-edit.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { LoginComponent } from './login/login.component';
+import { AuthComponent } from './auth/auth.component';
+import { BetHomeComponent } from './bets/bet-home/bet-home.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LoginComponent } from './login/login.component';
     BetItemComponent,
     BetDetailComponent,
     BetEditComponent,
-    LoginComponent
+    AuthComponent,
+    BetHomeComponent,
   ],
     imports: [
         BrowserModule,

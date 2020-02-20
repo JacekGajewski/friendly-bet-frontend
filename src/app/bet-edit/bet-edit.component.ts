@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {BetService} from '../bets/service/bet.service';
 import {Bet} from '../bets/model/bet.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-bet-edit',
@@ -19,7 +20,8 @@ export class BetEditComponent implements OnInit {
 
   constructor(private betService: BetService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -27,7 +29,8 @@ export class BetEditComponent implements OnInit {
       betData: new FormGroup({
         betName: new FormControl(null, [Validators.required]),
         betContent: new FormControl(null, [Validators.required]),
-        value: new FormControl(null, [Validators.required])
+        value: new FormControl(null, [Validators.required]),
+        rival: new FormControl(null, [Validators.required]),
       })
       // gender: new FormControl('male'),
       // hobbies: new FormArray([])
@@ -83,10 +86,15 @@ export class BetEditComponent implements OnInit {
     this.betService.addBet(new Bet(
       this.signUpForm.get('betData').get('betName').value,
       this.signUpForm.get('betData').get('betContent').value,
-      this.signUpForm.get('betData').get('value').value)
+      this.signUpForm.get('betData').get('value').value,
+      'pending',
+      +this.authService.getId(),
+      this.signUpForm.get('betData').get('rival').value,
+      this.authService.getId()), this.authService.getId(), this.signUpForm.get('betData').get('rival').value
     ).subscribe(
       responseData => this.betService.onEmit()
     );
+
     console.log(this.id);
   }
 

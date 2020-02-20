@@ -39,28 +39,15 @@
             *ngIf="!signUpForm.get('betData.value').valid && signUpForm.get('betData.value').touched"
             class="help-block">Please enter a valid value</span>
         </div>
+        <div class="form-group">
+          <label for="rival">Rival</label>
+          <input
+            type="string"
+            id="rival"
+            formControlName="rival"
+            class="form-control">
+        </div>
       </div>
-      <!--      <div class="radio" *ngFor="let gender of genders">-->
-      <!--        <label>-->
-      <!--          <input-->
-      <!--            type="radio"-->
-      <!--            formControlName="gender"-->
-      <!--            [value]="gender">{{ gender }}-->
-      <!--        </label>-->
-      <!--      </div>-->
-      <!--      <div formArrayName="hobbies">-->
-      <!--        <h4>Your hobbies</h4>-->
-      <!--        <button-->
-      <!--          class="btn btn-default"-->
-      <!--          type="button"-->
-      <!--          (click)="onAddHobbies()">Add Hobby-->
-      <!--        </button>-->
-      <!--        <div-->
-      <!--          class="form-group"-->
-      <!--          *ngFor="let hobbyControl of getControls(); let i = index">-->
-      <!--          <input type="text" class="form-control" [formControlName]="i">-->
-      <!--        </div>-->
-      <!--      </div>-->
             <span
               *ngIf="!signUpForm.valid && signUpForm.touched"
               class="help-block">Please enter a valid data</span>

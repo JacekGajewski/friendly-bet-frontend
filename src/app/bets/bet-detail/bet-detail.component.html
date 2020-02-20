@@ -20,7 +20,8 @@
         Dropdown button
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" [routerLink]="['edit']">EdEit</a>
+        <a class="dropdown-item" (click)="changeStatus('active')">Accept</a>
+        <a class="dropdown-item" (click)="changeStatus('archived')">Archive</a>
         <a class="dropdown-item" (click)="deleteBet()">Delete</a>
       </div>
     </div>
