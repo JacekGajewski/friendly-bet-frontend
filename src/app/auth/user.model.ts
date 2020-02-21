@@ -1,5 +1,6 @@
 export class UserModel {
-  constructor(public email: string,
+
+  constructor(public username: string,
               public id: string,
               private _token: string,
               private _tokenExpDate: Date) {
@@ -7,7 +8,7 @@ export class UserModel {
 
 
   get token() {
-    if (!this._tokenExpDate || new Date() > this._tokenExpDate){
+    if (!this._tokenExpDate || new Date() > this._tokenExpDate) {
       return null;
     }
     return this.token;

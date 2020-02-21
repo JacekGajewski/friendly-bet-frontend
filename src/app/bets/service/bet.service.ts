@@ -28,8 +28,9 @@ export class BetService {
     });
   }
 
-  addBet(newBet: Bet, userId: string, rivalId: string): Observable<Bet> {
-    return this.http.post<Bet>(this.baseUrl + '/' + userId + '/' + rivalId, newBet, {
+  addBet(newBet: Bet): Observable<Bet> {
+    console.log(newBet);
+    return this.http.post<Bet>(this.baseUrl, newBet, {
       headers: new HttpHeaders({
         Authorization: this.authService.token
       })

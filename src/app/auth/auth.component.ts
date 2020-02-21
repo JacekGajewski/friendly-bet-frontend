@@ -25,14 +25,14 @@ export class AuthComponent {
       return;
     }
 
-    const email = authForm.form.value.email;
+    const username = authForm.form.value.username;
     const pass = authForm.form.value.password;
 
     // let authObsv: Observable<object>;
 
     this.isLoading = true;
     if (this.isLoginMode) {
-      this.authService.login(email, pass).subscribe(responseData => {
+      this.authService.login(username, pass).subscribe(responseData => {
         console.log(responseData);
         this.isLoading = false;
       }, error => {
@@ -41,15 +41,15 @@ export class AuthComponent {
         this.isLoading = false;
       });
     } else {
-      this.authService.signup(email, pass).subscribe(responseData => {
+      this.authService.signup(username, pass).subscribe(responseData => {
         console.log(responseData);
         this.isLoading = false;
       }, error => {
         console.log(error);
         this.error = 'An error occurred';
         this.isLoading = false;
-      });;
-      // this.authService.signup(email, pass)
+      });
+      // this.authService.signup(username, pass)
       //   .subscribe(responseData => {
       //     console.log(responseData);
       //     this.isLoading = false;

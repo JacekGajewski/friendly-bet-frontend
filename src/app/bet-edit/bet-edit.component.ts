@@ -90,7 +90,7 @@ export class BetEditComponent implements OnInit {
       'pending',
       +this.authService.getId(),
       this.signUpForm.get('betData').get('rival').value,
-      this.authService.getId()), this.authService.getId(), this.signUpForm.get('betData').get('rival').value
+      +this.authService.getId())
     ).subscribe(
       responseData => this.betService.onEmit()
     );

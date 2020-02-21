@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaderResponse, HttpHeaders, HttpResponse} from '@angula
 import {Observable, Subject} from 'rxjs';
 import {UserModel} from './user.model';
 import {catchError, map, tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 export interface AuthResponseData {
   email: string;
@@ -19,73 +20,38 @@ export class AuthService {
   user = new Subject<UserModel>();
   id: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
-  // signup(aemail: string, apassword: string) {
-  //   const url = '';
-  //   return this.http.post<any>(url,
-  //     {
-  //       email: aemail,
-  //       password: apassword,
-  //       returnToken: true
-  //     }
-  //   )
-  //     .pipe(tap(responseData => {
-  //       this.handleAuthentication(responseData.email, responseData.id, responseData.tokenid, +responseData.expircesIn);
-  //     }));
-  // }
   getId() {
     return this.id;
   }
 
-  signup(aemail: string, apassword: string) {
-    const url = 'http://localhost:8080/bets';
-    return this.http.get(url,
-      {
-        headers: new HttpHeaders({
-          Authorization: this.token
-        })
-      }
-    );
+  signup(theUsername: string, thePassword: string) {
+    const url = 'http://localhost:8080/users';
+    return this.http.post(url, {
+      username: theUsername,
+      password: thePassword
+    });
   }
 
-  login(aemail: string, pass: string) {
+  login(theUsername: string, thePassword: string) {
     const url = 'http://localhost:8080/login';
-    console.log(aemail);
-    console.log(pass);
-
     return this.http.post<object>(url,
       {
-        username: aemail,
-        password: pass
-      }, {observe: 'response'}).pipe(map(responseData => {
-      // console.log('login';
-      this.token = responseData.headers.get('Authorization');
-      this.id = responseData.headers.get('UserId');
-      // .replace(/Bearer /gi, '');
-      console.log('heaeder: ', responseData.headers.get('Authorization'));
-      console.log('heaeder: ', this.token);
-      // console.log(responseData);
-      // this.handleAuthentication(responseData.email, responseData.id, responseData.tokenid, +responseData.expircesIn);
+        username: theUsername,
+        password: thePassword
+      }, {observe: 'response'})
+      .pipe(map(responseData => {
+        this.token = responseData.headers.get('Authorization');
+        this.id = responseData.headers.get('UserId');
+        this.router.navigate(['/bets']);
     }));
   }
 
-  private handleAuthentication(email: string, id: string, token: string, expiresIn: number) {
-    const expDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const user = new UserModel(
-      email,
-      id,
-      token,
-      expDate
-    );
-    this.user.next(user);
-  }
-
-  createOrder() {
-    const url = 'http://localhost:8080/login';
-    return this.http.get(url, {observe: 'response'}).pipe(
-      map(resp => console.log('heaeder', resp.headers.get('Authorization')))
-    );
+  logout() {
+    this.token = null;
+    this.id = null;
+    this.router.navigate(['/auth']);
   }
 }

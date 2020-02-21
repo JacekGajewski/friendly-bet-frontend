@@ -1,5 +1,5 @@
 export class Bet {
-  public betId?: string;
+  public betId?: number;
   public title: string;
   public content: string;
   public value: string;
@@ -8,7 +8,7 @@ export class Bet {
   public rivalName: string;
 
 
-  constructor(title: string, content: string, value: string, status: string, creatorId: number, rivalName: string, betId?: string) {
+  constructor(title: string, content: string, value: string, status: string, creatorId: number, rivalName: string, betId?: number) {
     this.betId = betId;
     this.title = title;
     this.content = content;
