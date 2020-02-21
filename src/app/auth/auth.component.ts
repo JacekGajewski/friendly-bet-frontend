@@ -33,7 +33,6 @@ export class AuthComponent {
     this.isLoading = true;
     if (this.isLoginMode) {
       this.authService.login(username, pass).subscribe(responseData => {
-        console.log(responseData);
         this.isLoading = false;
       }, error => {
         console.log(error);
@@ -42,7 +41,6 @@ export class AuthComponent {
       });
     } else {
       this.authService.signup(username, pass).subscribe(responseData => {
-        console.log(responseData);
         this.isLoading = false;
       }, error => {
         console.log(error);

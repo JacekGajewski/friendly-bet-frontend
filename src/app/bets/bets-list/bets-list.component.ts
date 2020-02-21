@@ -48,9 +48,6 @@ export class BetsListComponent implements OnInit {
   }
 
   changeStatus(newStatus: string) {
-    console.log('ACTIVE: ' + this.activeBets.length);
-    console.log('PENDING: ' + this.pendingBets.length);
-    console.log('ARCHIVED: ' + this.archivedBets.length);
     this.status = newStatus;
   }
 }

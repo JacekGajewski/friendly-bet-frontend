@@ -15,7 +15,7 @@ export class BetService {
   getBet(id: number) {
     return this.http.get(this.baseUrl + '/' + id, {
       headers: new HttpHeaders({
-        Authorization: this.authService.token
+        Authorization: this.authService.user.token
       })
     });
   }
@@ -23,7 +23,7 @@ export class BetService {
   getBetsByStatus(status: string) {
     return this.http.get('http://localhost:8080/bets/' + this.authService.getId() + '/' + status, {
       headers: new HttpHeaders({
-        Authorization: this.authService.token
+        Authorization: this.authService.user.token
       })
     });
   }
@@ -32,7 +32,7 @@ export class BetService {
     console.log(newBet);
     return this.http.post<Bet>(this.baseUrl, newBet, {
       headers: new HttpHeaders({
-        Authorization: this.authService.token
+        Authorization: this.authService.user.token
       })
     });
   }
@@ -40,7 +40,7 @@ export class BetService {
   deleteBet(id: number): Observable<{}> {
     return this.http.delete(this.baseUrl + '/' + id, {
       headers: new HttpHeaders({
-        Authorization: this.authService.token
+        Authorization: this.authService.user.token
       })
     });
 
@@ -49,7 +49,7 @@ export class BetService {
   updateBet(bet: Bet) {
     return this.http.put(this.baseUrl, bet, {
       headers: new HttpHeaders({
-        Authorization: this.authService.token
+        Authorization: this.authService.user.token
       })
     });
   }
