@@ -1,17 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaderResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 import {UserModel} from './user.model';
-import {catchError, map, tap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
-
-export interface AuthResponseData {
-  email: string;
-  id: string;
-  tokenid: string;
-  expircesIn: number;
-  extra?: boolean; // Optional
-}
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -27,7 +18,7 @@ export class AuthService {
   }
 
   signup(theUsername: string, thePassword: string) {
-    const url = 'http://localhost:8080/users';
+    const url = 'https://jg-test.herokuapp.com/users';
     return this.http.post(url, {
       username: theUsername,
       password: thePassword
@@ -35,7 +26,7 @@ export class AuthService {
   }
 
   login(theUsername: string, thePassword: string) {
-    const url = 'http://localhost:8080/login';
+    const url = 'https://jg-test.herokuapp.com/login';
     return this.http.post<object>(url,
       {
         username: theUsername,
@@ -59,25 +50,21 @@ export class AuthService {
   }
 
   autoLogin() {
-    const userData: {
-      username: string,
-      id: string,
-      _token: string,
-      __tokenExpDate: string
-    } = JSON.parse(localStorage.getItem('userData'));
+    const userData = JSON.parse(localStorage.getItem('userData'));
     if (!userData) {
       return null;
     }
+
     const loadedUser = new UserModel(
       userData.username,
       userData.id,
       userData._token,
-      new Date(userData.__tokenExpDate)
+      new Date(userData._tokenExpDate)
     );
 
     if (loadedUser.token) {
       this.user = loadedUser;
-      const expDuration = new Date(userData.__tokenExpDate).getTime() -
+      const expDuration = new Date(userData._tokenExpDate).getTime() -
         new Date().getTime();
       this.autoLogout(expDuration);
     }

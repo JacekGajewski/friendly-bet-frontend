@@ -7,13 +7,13 @@ import {AuthService} from '../../auth/auth.service';
 @Injectable()
 export class BetService {
   @Output() betsListener = new EventEmitter();
-  private baseUrl = 'http://localhost:8080/bets';
+  private baseUrl = 'https://jg-test.herokuapp.com/user';
 
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
   getBet(id: number) {
-    return this.http.get(this.baseUrl + '/' + id, {
+    return this.http.get(this.baseUrl + '/' + this.authService.getId() + '/bets/' + id, {
       headers: new HttpHeaders({
         Authorization: this.authService.user.token
       })
@@ -21,7 +21,7 @@ export class BetService {
   }
 
   getBetsByStatus(status: string) {
-    return this.http.get('http://localhost:8080/bets/' + this.authService.getId() + '/' + status, {
+    return this.http.get('https://jg-test.herokuapp.com/user/' + this.authService.getId() + '/bets/status/' + status, {
       headers: new HttpHeaders({
         Authorization: this.authService.user.token
       })
@@ -30,7 +30,7 @@ export class BetService {
 
   addBet(newBet: Bet): Observable<Bet> {
     console.log(newBet);
-    return this.http.post<Bet>(this.baseUrl, newBet, {
+    return this.http.post<Bet>(this.baseUrl + '/' + this.authService.getId() + '/bets', newBet, {
       headers: new HttpHeaders({
         Authorization: this.authService.user.token
       })
@@ -38,7 +38,7 @@ export class BetService {
   }
 
   deleteBet(id: number): Observable<{}> {
-    return this.http.delete(this.baseUrl + '/' + id, {
+    return this.http.delete(this.baseUrl + '/' + this.authService.getId() + '/bets' + '/' + id, {
       headers: new HttpHeaders({
         Authorization: this.authService.user.token
       })
@@ -47,7 +47,7 @@ export class BetService {
   }
 
   updateBet(bet: Bet) {
-    return this.http.put(this.baseUrl, bet, {
+    return this.http.put(this.baseUrl + '/' + this.authService.getId() + '/bets', bet, {
       headers: new HttpHeaders({
         Authorization: this.authService.user.token
       })
