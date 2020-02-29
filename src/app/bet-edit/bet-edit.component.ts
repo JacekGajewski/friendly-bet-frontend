@@ -94,8 +94,6 @@ export class BetEditComponent implements OnInit {
     ).subscribe(
       responseData => this.betService.onEmit()
     );
-
-    console.log(this.id);
   }
 
   // onAddHobbies() {
