@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {UserModel} from './user.model';
 import {tap} from 'rxjs/operators';
@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
+  @Output() logListener = new EventEmitter();
   user: UserModel;
   private expTimeToken;
 
@@ -14,7 +15,10 @@ export class AuthService {
   }
 
   getId() {
-    return this.user.id;
+    if (this.user) {
+      return this.user.id;
+    }
+    return null;
   }
 
   signup(theUsername: string, thePassword: string) {
@@ -40,6 +44,7 @@ export class AuthService {
           responseData.headers.get('Authorization'),
           expData
         );
+        this.onEmit(true);
         localStorage.setItem('userData', JSON.stringify(this.user));
         this.autoLogout(+responseData.headers.get('ExpiresIn') * 24 * 3600); // TODO: Check if the time is correct
         this.router.navigate(['/bets']);
@@ -52,6 +57,7 @@ export class AuthService {
   autoLogin() {
     const userData = JSON.parse(localStorage.getItem('userData'));
     if (!userData) {
+      this.router.navigate(['/auth']);
       return null;
     }
 
@@ -61,17 +67,20 @@ export class AuthService {
       userData._token,
       new Date(userData._tokenExpDate)
     );
-
+    this.onEmit(true);
     if (loadedUser.token) {
       this.user = loadedUser;
       const expDuration = new Date(userData._tokenExpDate).getTime() -
         new Date().getTime();
       this.autoLogout(expDuration);
+      this.onEmit(true);
+      console.log('autologin');
     }
   }
 
   logout() {
     this.user = null;
+    this.onEmit(false);
     localStorage.removeItem('userData');
     this.router.navigate(['/auth']);
 
@@ -85,5 +94,9 @@ export class AuthService {
     this.expTimeToken = setTimeout(() => {
       this.logout();
     }, expDuration);
+  }
+
+  onEmit(loggedIn: boolean) {
+    this.logListener.emit(loggedIn);
   }
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Bet} from '../model/bet.model';
 import {BetService} from '../service/bet.service';
 import {AuthService} from '../../auth/auth.service';
+import {ActivatedRoute, Router, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-bets-list',
@@ -15,7 +16,9 @@ export class BetsListComponent implements OnInit {
   status = 'active';
 
   constructor(private betService: BetService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -49,5 +52,7 @@ export class BetsListComponent implements OnInit {
 
   changeStatus(newStatus: string) {
     this.status = newStatus;
+    this.router.navigate(['/bets/home']);
+
   }
 }

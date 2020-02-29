@@ -13,6 +13,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { AuthComponent } from './auth/auth.component';
 import { BetHomeComponent } from './bets/bet-home/bet-home.component';
+import { SettingsComponent } from './settings/settings.component';
+import { SettingsListComponent } from './settings/settings-list/settings-list.component';
+import { SettingsPasswordComponent } from './settings/settings-password/settings-password.component';
+import { SettingsOtherComponent } from './settings/settings-other/settings-other.component';
+import { SettingsUsernameComponent } from './settings/settings-username/settings-username.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +30,11 @@ import { BetHomeComponent } from './bets/bet-home/bet-home.component';
     BetEditComponent,
     AuthComponent,
     BetHomeComponent,
+    SettingsComponent,
+    SettingsListComponent,
+    SettingsPasswordComponent,
+    SettingsOtherComponent,
+    SettingsUsernameComponent,
   ],
     imports: [
         BrowserModule,
