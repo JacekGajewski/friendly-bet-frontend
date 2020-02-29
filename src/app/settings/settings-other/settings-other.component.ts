@@ -17,8 +17,4 @@ export class SettingsOtherComponent implements OnInit {
       confirm('YOU SUCK!');
     }
   }
-
-  onClickMe() {
-    console.log('Fuck you');
-  }
 }

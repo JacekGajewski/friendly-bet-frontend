@@ -1,45 +1,29 @@
+<!--<div class="row">-->
+<!--  <div class="col-xs-12">-->
+<!--&lt;!&ndash;    <button&ndash;&gt;-->
+<!--&lt;!&ndash;      [routerLink]="['new']"&ndash;&gt;-->
+<!--&lt;!&ndash;      class="btn btn-success ml-3 mt-2">New Bet&ndash;&gt;-->
+<!--&lt;!&ndash;    </button>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button&ndash;&gt;-->
+<!--&lt;!&ndash;      (click)="changeStatus('active')"&ndash;&gt;-->
+<!--&lt;!&ndash;      class="btn btn-success ml-3 mt-2">Active&ndash;&gt;-->
+<!--&lt;!&ndash;    </button>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button&ndash;&gt;-->
+<!--&lt;!&ndash;      (click)="changeStatus('pending')"&ndash;&gt;-->
+<!--&lt;!&ndash;      class="btn btn-success ml-3 mt-2">Pending&ndash;&gt;-->
+<!--&lt;!&ndash;    </button>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button&ndash;&gt;-->
+<!--&lt;!&ndash;      (click)="changeStatus('archived')"&ndash;&gt;-->
+<!--&lt;!&ndash;      class="btn btn-success ml-3 mt-2">Archived&ndash;&gt;-->
+<!--&lt;!&ndash;    </button>&ndash;&gt;-->
+<!--  </div>-->
+<!--</div>-->
+<!--<hr>-->
 <div class="row">
-  <div class="col-xs-12">
-    <button
-      [routerLink]="['new']"
-      class="btn btn-success ml-3 mt-2">New Bet
-    </button>
-    <button
-      (click)="changeStatus('active')"
-      class="btn btn-success ml-3 mt-2">Active
-    </button>
-    <button
-      (click)="changeStatus('pending')"
-      class="btn btn-success ml-3 mt-2">Pending
-    </button>
-    <button
-      (click)="changeStatus('archived')"
-      class="btn btn-success ml-3 mt-2">Archived
-    </button>
-  </div>
-</div>
-<hr>
-<div class="row">
-  <div class="col-xs-12">
-    <div [ngSwitch]="status">
-      <p *ngSwitchCase="'active'">
-        <app-bet-item
-          *ngFor="let bet of activeBets; let i = index"
-          [bet]="bet"
-          [index]="i"></app-bet-item>
-      </p>
-      <p *ngSwitchCase="'pending'">
-        <app-bet-item
-          *ngFor="let bet of pendingBets; let i = index"
-          [bet]="bet"
-          [index]="i"></app-bet-item>
-      </p>
-      <p *ngSwitchCase="'archived'">
-        <app-bet-item
-          *ngFor="let bet of archivedBets; let i = index"
-          [bet]="bet"
-          [index]="i"></app-bet-item>
-      </p>
-    </div>
+  <div class="col-xs-12 ml-3 mr-3">
+    <app-bet-item
+      *ngFor="let bet of bets; let i = index"
+      [bet]="bet"
+      [index]="i"></app-bet-item>
   </div>
 </div>

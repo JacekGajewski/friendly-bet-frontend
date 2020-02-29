@@ -1,8 +1,41 @@
-<div class="row">
-  <div class="col-md-5">
-    <app-bets-list></app-bets-list>
-  </div>
-  <div class="col-md-7">
-    <router-outlet></router-outlet>
+<div>
+  <button
+    [routerLink]="['new']"
+    class="btn btn-success mt-2">New Bet
+  </button>
+  <button
+    (click)="changeStatus('active')"
+    class="btn btn-success ml-3 mt-2">Active
+  </button>
+  <button
+    (click)="changeStatus('pending')"
+    class="btn btn-success ml-3 mr-3 mt-2">Pending
+  </button>
+  <button
+    (click)="changeStatus('archived')"
+    class="btn btn-success mt-2">Archived
+  </button>
+  <hr>
+  <div class="row">
+    <div class="col-md-5 order-xl-first order-lg-first order-md-first">
+      <div [ngSwitch]="status">
+        <p *ngSwitchCase="'active'">
+          <app-bets-list
+            [bets]="activeBets"></app-bets-list>
+        </p>
+        <p *ngSwitchCase="'pending'">
+          <app-bets-list
+            [bets]="pendingBets"></app-bets-list>
+        </p>
+        <p *ngSwitchCase="'archived'">
+          <app-bets-list
+            [bets]="archivedBets"></app-bets-list>
+        </p>
+      </div>
+      <app-bets-list></app-bets-list>
+    </div>
+    <div class="col-md-7 order-first">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

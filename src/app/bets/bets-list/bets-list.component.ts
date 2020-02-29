@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Bet} from '../model/bet.model';
 import {BetService} from '../service/bet.service';
 import {AuthService} from '../../auth/auth.service';
@@ -10,10 +10,7 @@ import {ActivatedRoute, Router, RouterLinkActive} from '@angular/router';
   styleUrls: ['./bets-list.component.css']
 })
 export class BetsListComponent implements OnInit {
-  activeBets: Bet[] = [];
-  pendingBets: Bet[] = [];
-  archivedBets: Bet[] = [];
-  status = 'active';
+  @Input() bets: Bet[] = [];
 
   constructor(private betService: BetService,
               private authService: AuthService,
@@ -22,37 +19,6 @@ export class BetsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showBets();
-    this.betService.betsListener.subscribe(
-      (data: string) => {
-        this.showBets();
-      },
-    );
-  }
-
-  showBets() {
-    this.betService.getBetsByStatus('active')
-      .subscribe((data: Bet[]) => {
-          this.activeBets = data;
-        },
-      );
-
-    this.betService.getBetsByStatus('pending')
-      .subscribe((data: Bet[]) => {
-          this.pendingBets = data;
-        },
-      );
-
-    this.betService.getBetsByStatus('archived')
-      .subscribe((data: Bet[]) => {
-          this.archivedBets = data;
-        },
-      );
-  }
-
-  changeStatus(newStatus: string) {
-    this.status = newStatus;
-    this.router.navigate(['/bets/home']);
 
   }
 }
