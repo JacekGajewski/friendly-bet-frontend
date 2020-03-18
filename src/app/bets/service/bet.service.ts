@@ -7,7 +7,7 @@ import {AuthService} from '../../auth/auth.service';
 @Injectable()
 export class BetService {
   @Output() betsListener = new EventEmitter();
-  private baseUrl = 'http://localhost:8080/user';
+  private baseUrl = 'https://friendly-bet-backend.herokuapp.com/user';
 
   constructor(private http: HttpClient, private authService: AuthService) {
   }
@@ -21,7 +21,7 @@ export class BetService {
   }
 
   getBetsByStatus(status: string) {
-    return this.http.get('http://localhost:8080/user/' + this.authService.getId() + '/bets/status/' + status, {
+    return this.http.get('https://friendly-bet-backend.herokuapp.com/user/' + this.authService.getId() + '/bets/status/' + status, {
       headers: new HttpHeaders({
         Authorization: this.authService.user.token
       })
