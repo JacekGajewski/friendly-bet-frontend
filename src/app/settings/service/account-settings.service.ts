@@ -1,25 +1,37 @@
 import {Injectable} from '@angular/core';
 import {UserModel} from '../../auth/user.model';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {AuthService} from '../../auth/auth.service';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AccountSettingsService {
 
-  private baseUrl = 'https://jg-test.herokuapp.com/users';
+  private baseUrl = 'http://localhost:8080/users';
 
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
-  changePassword(newPassword: string) {
-    return this.http.put(this.baseUrl + '/' + this.authService.getId(), {
-      userId: this.authService.getId(),
-      username: this.authService.user.username,
-      password: newPassword
+  changePassword(oldPassword: string, newPassword: string) {
+    return this.http.patch(this.baseUrl + '/' + this.authService.getId() + '/password', {
+      oldPassword,
+      newPassword
     }, {
-      headers: new HttpHeaders({
-        Authorization: this.authService.user.token
-      })
+      headers: new HttpHeaders({Authorization: this.authService.user.token})
     });
   }
+
+  changeUsername(newUsername: string) {
+    return this.http.patch(this.baseUrl + '/' + this.authService.getId() + '/username', {}, {
+      headers: new HttpHeaders({Authorization: this.authService.user.token}),
+      params: new HttpParams().set('new-username', newUsername)
+    });
+  }
+
+  deleteAccount() {
+    return this.http.delete(this.baseUrl + '/' + this.authService.getId(), {
+      headers: new HttpHeaders({Authorization: this.authService.user.token}),
+    });
+  }
+
 }

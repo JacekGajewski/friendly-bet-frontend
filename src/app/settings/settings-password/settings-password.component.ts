@@ -13,8 +13,7 @@ export class SettingsPasswordComponent implements OnInit {
   passwordForm: FormGroup;
 
 
-  constructor(private accountService: AccountSettingsService,
-              private authService: AuthService) {
+  constructor(private accountService: AccountSettingsService) {
   }
 
   ngOnInit() {
@@ -44,14 +43,15 @@ export class SettingsPasswordComponent implements OnInit {
       return;
     }
 
-    const newPassword = this.passwordForm.get('new_password').value;
-    const user = this.authService.user;
+    const oldPassword = this.passwordForm.get('current_password').value;
+    const newPassword = this.passwordForm.get('new_pass').get('new_password').value;
 
-    this.accountService.changePassword(newPassword).subscribe(responseData => {
+    this.accountService.changePassword(oldPassword, newPassword).subscribe(responseData => {
       console.log('ok');
+      this.error = 'Hasło zostało zmienione';
     }, error => {
       console.log(error);
-      this.error = 'An error occurred';
+      this.error = error.error.message;
     });
   }
 }

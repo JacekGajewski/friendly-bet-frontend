@@ -36,7 +36,7 @@ export class AuthComponent {
         this.isLoading = false;
       }, error => {
         console.log(error);
-        this.error = 'An error occurred';
+        this.error = 'Zły login lub hasło';
         this.isLoading = false;
       });
     } else {
@@ -44,7 +44,7 @@ export class AuthComponent {
         this.isLoading = false;
       }, error => {
         console.log(error);
-        this.error = 'An error occurred';
+        this.error = error.error.message;
         this.isLoading = false;
       });
       // this.authService.signup(username, pass)

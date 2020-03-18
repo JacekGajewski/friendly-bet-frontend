@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {AccountSettingsService} from '../service/account-settings.service';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-settings-username',
@@ -8,14 +10,25 @@ import {NgForm} from '@angular/forms';
 })
 export class SettingsUsernameComponent implements OnInit {
   error: string = null;
+  usernameForm: FormGroup;
 
-  constructor() {
+  constructor(private accountService: AccountSettingsService) {
   }
 
   ngOnInit() {
+    this.usernameForm = new FormGroup({
+      new_username: new FormControl(null, Validators.required)
+    });
   }
 
-  onSubmit(authForm: NgForm) {
-
+  onSubmit() {
+    this.accountService.changeUsername(this.usernameForm.get('new_username').value)
+      .subscribe( responseDate => {
+        console.log('ok');
+        this.error = 'Nazwa użytkownika została zmieniona';
+      }, error => {
+        console.log(error);
+        this.error = error.error.message;
+      });
   }
 }

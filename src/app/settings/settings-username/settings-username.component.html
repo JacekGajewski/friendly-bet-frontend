@@ -3,22 +3,22 @@
     <div class="alert alert-danger" *ngIf="error">
       <p>{{error}}</p>
     </div>
-    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+    <form [formGroup]="usernameForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="new_username">New username</label>
         <input
           type="new_username"
           id="new_username"
           class="form-control"
-          ngModel
+          formControlName="new_username"
           name="new_username"
-          required/>
+          />
       </div>
       <div>
         <button
           class="btn btn-primary"
           type="submit"
-          [disabled]="!authForm.valid">
+          [disabled]="!usernameForm.valid">
           Change username
         </button>
       </div>
