@@ -7,9 +7,9 @@ import {Router} from '@angular/router';
 @Injectable()
 export class AccountSettingsService {
 
-  private baseUrl = 'https://friendly-bet-backend.herokuapp.com/users';
+  private baseUrl = 'http://localhost:8080/users';
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(private http: HttpClient, private authService: AuthService, private env: EnvService) {
   }
 
   changePassword(oldPassword: string, newPassword: string) {

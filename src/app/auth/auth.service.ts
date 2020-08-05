@@ -11,7 +11,7 @@ export class AuthService {
   user: UserModel;
   private expTimeToken;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private env: EnvService) {
   }
 
   getId() {
@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   signup(theUsername: string, thePassword: string) {
-    const url = 'https://friendly-bet-backend.herokuapp.com/users';
+    const url = 'http://localhost:8080/users';
     return this.http.post(url, {
       username: theUsername,
       password: thePassword
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   login(theUsername: string, thePassword: string) {
-    const url = 'https://friendly-bet-backend.herokuapp.com/login';
+    const url = 'http://localhost:8080/login';
     return this.http.post<object>(url,
       {
         username: theUsername,
