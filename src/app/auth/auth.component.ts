@@ -54,15 +54,6 @@ export class AuthComponent {
         this.error = error.error.message;
         this.success = null;
       });
-      // this.authService.signup(username, pass)
-      //   .subscribe(responseData => {
-      //     console.log(responseData);
-      //     this.isLoading = false;
-      //   }, error => {
-      //     console.log(error);
-      //     this.error = 'An error occurred';
-      //     this.isLoading = false;
-      //   });
     }
     // authObsv.subscribe(responseData => {
     //   console.log(responseData);

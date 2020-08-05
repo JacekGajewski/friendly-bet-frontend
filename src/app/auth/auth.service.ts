@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   signup(theUsername: string, thePassword: string) {
-    const url = 'http://localhost:8080/users';
+    const url = 'https://friendly-bet-backend.herokuapp.com/users';
     return this.http.post(url, {
       username: theUsername,
       password: thePassword
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   login(theUsername: string, thePassword: string) {
-    const url = 'http://localhost:8080/login';
+    const url = 'https://friendly-bet-backend.herokuapp.com/login';
     return this.http.post<object>(url,
       {
         username: theUsername,
