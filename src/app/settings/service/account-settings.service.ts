@@ -3,13 +3,14 @@ import {UserModel} from '../../auth/user.model';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {AuthService} from '../../auth/auth.service';
 import {Router} from '@angular/router';
+import {EnvService} from '../../env.service';
 
 @Injectable()
 export class AccountSettingsService {
 
-  private baseUrl = 'http://localhost:8080/users';
+  private baseUrl = this.env.apiUrl + '/users';
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(private http: HttpClient, private authService: AuthService, private env: EnvService) {
   }
 
   changePassword(oldPassword: string, newPassword: string) {

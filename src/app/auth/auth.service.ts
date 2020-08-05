@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {UserModel} from './user.model';
 import {tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {EnvService} from '../env.service';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -11,7 +12,7 @@ export class AuthService {
   user: UserModel;
   private expTimeToken;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private env: EnvService) {
   }
 
   getId() {
@@ -22,7 +23,7 @@ export class AuthService {
   }
 
   signup(theUsername: string, thePassword: string) {
-    const url = 'http://localhost:8080/users';
+    const url = this.env.apiUrl + '/users';
     return this.http.post(url, {
       username: theUsername,
       password: thePassword
@@ -30,7 +31,7 @@ export class AuthService {
   }
 
   login(theUsername: string, thePassword: string) {
-    const url = 'http://localhost:8080/login';
+    const url =  this.env.apiUrl + '/login';
     return this.http.post<object>(url,
       {
         username: theUsername,
