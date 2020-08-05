@@ -15,6 +15,8 @@ export class BetEditComponent implements OnInit {
   // genders = ['male', 'female'];
   signUpForm: FormGroup;
   id = -1;
+  error: string = null;
+  success: string = null;
 
   // forbiddenUserName = ['Chris', 'Anna'];
 
@@ -92,7 +94,15 @@ export class BetEditComponent implements OnInit {
       this.signUpForm.get('betData').get('rival').value,
       +this.authService.getId())
     ).subscribe(
-      responseData => this.betService.onEmit()
+      responseData => {
+        this.betService.onEmit();
+        this.error = null;
+        this.success = 'New bet was created';
+      },
+      error => {
+        this.error = error.error.message;
+        this.success = null;
+      }
     );
   }
 

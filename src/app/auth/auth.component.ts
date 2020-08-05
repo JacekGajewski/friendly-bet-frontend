@@ -12,6 +12,7 @@ export class AuthComponent {
   isLoginMode = true;
   isLoading = false;
   error: string = null;
+  success: string = null;
 
   constructor(private authService: AuthService) {
   }
@@ -34,18 +35,24 @@ export class AuthComponent {
     if (this.isLoginMode) {
       this.authService.login(username, pass).subscribe(responseData => {
         this.isLoading = false;
+        this.error = null;
+        this.success = null;
       }, error => {
         console.log(error);
-        this.error = 'Zły login lub hasło';
         this.isLoading = false;
+        this.error = 'Bad login or password';
+        this.success = null;
       });
     } else {
       this.authService.signup(username, pass).subscribe(responseData => {
         this.isLoading = false;
+        this.error = null;
+        this.success = 'Successful registration';
       }, error => {
         console.log(error);
-        this.error = error.error.message;
         this.isLoading = false;
+        this.error = error.error.message;
+        this.success = null;
       });
       // this.authService.signup(username, pass)
       //   .subscribe(responseData => {
