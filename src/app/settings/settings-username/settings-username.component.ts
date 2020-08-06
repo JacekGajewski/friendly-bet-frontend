@@ -10,6 +10,7 @@ import {AuthService} from '../../auth/auth.service';
 })
 export class SettingsUsernameComponent implements OnInit {
   error: string = null;
+  success = false;
   usernameForm: FormGroup;
 
   constructor(private accountService: AccountSettingsService) {
@@ -25,10 +26,12 @@ export class SettingsUsernameComponent implements OnInit {
     this.accountService.changeUsername(this.usernameForm.get('new_username').value)
       .subscribe( responseDate => {
         console.log('ok');
-        this.error = 'Nazwa użytkownika została zmieniona';
+        this.error = 'Username changed successfully';
+        this.success = true;
       }, error => {
         console.log(error);
         this.error = error.error.message;
+        this.success = false;
       });
   }
 }
