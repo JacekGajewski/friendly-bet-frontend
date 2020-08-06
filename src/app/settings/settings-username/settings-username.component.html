@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12 col-md-6 col-md-offset-3">
-    <div class="alert alert-danger" *ngIf="error">
+    <div [ngClass]="success ? 'alert-success' : 'alert-danger'" class="alert" *ngIf="error">
       <p>{{error}}</p>
     </div>
     <form [formGroup]="usernameForm" (ngSubmit)="onSubmit()">

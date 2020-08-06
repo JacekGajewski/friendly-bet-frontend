@@ -10,6 +10,7 @@ import {AuthService} from '../../auth/auth.service';
 })
 export class SettingsPasswordComponent implements OnInit {
   error: string = null;
+  success = false;
   passwordForm: FormGroup;
 
 
@@ -48,10 +49,12 @@ export class SettingsPasswordComponent implements OnInit {
 
     this.accountService.changePassword(oldPassword, newPassword).subscribe(responseData => {
       console.log('ok');
-      this.error = 'Hasło zostało zmienione';
+      this.error = 'Password changed successfully';
+      this.success = true;
     }, error => {
       console.log(error);
       this.error = error.error.message;
+      this.success = false;
     });
   }
 }

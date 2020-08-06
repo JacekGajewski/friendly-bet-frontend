@@ -12,13 +12,9 @@ export class AuthComponent {
   isLoginMode = true;
   isLoading = false;
   error: string = null;
-  success: string = null;
+  success = false;
 
   constructor(private authService: AuthService) {
-  }
-
-  onSwitchMode() {
-    this.isLoginMode = !this.isLoginMode;
   }
 
   onSubmit(authForm: NgForm) {
@@ -46,13 +42,14 @@ export class AuthComponent {
     } else {
       this.authService.signup(username, pass).subscribe(responseData => {
         this.isLoading = false;
-        this.error = null;
-        this.success = 'Successful registration';
+        this.error = 'Successful registration';
+        this.success = true;
+        this.onSwitchMode();
       }, error => {
         console.log(error);
         this.isLoading = false;
         this.error = error.error.message;
-        this.success = null;
+        this.success = false;
       });
     }
     // authObsv.subscribe(responseData => {
@@ -66,4 +63,8 @@ export class AuthComponent {
 
     authForm.reset();
   }
+  onSwitchMode() {
+    this.isLoginMode = !this.isLoginMode;
+  }
+
 }
