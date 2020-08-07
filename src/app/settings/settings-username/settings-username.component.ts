@@ -11,15 +11,17 @@ import {AuthService} from '../../auth/auth.service';
 export class SettingsUsernameComponent implements OnInit {
   error: string = null;
   success = false;
+  username: string;
   usernameForm: FormGroup;
 
-  constructor(private accountService: AccountSettingsService) {
+  constructor(private accountService: AccountSettingsService, private userAuth: AuthService) {
   }
 
   ngOnInit() {
     this.usernameForm = new FormGroup({
       new_username: new FormControl(null, Validators.required)
     });
+    this.username = this.userAuth.user.username;
   }
 
   onSubmit() {
@@ -28,6 +30,9 @@ export class SettingsUsernameComponent implements OnInit {
         console.log('ok');
         this.error = 'Username changed successfully';
         this.success = true;
+        this.userAuth.user.username = this.usernameForm.get('new_username').value;
+        this.username = this.usernameForm.get('new_username').value;
+        this.usernameForm.get('new_username').reset();
       }, error => {
         console.log(error);
         this.error = error.error.message;

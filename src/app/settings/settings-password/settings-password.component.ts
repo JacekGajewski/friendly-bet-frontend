@@ -49,6 +49,8 @@ export class SettingsPasswordComponent implements OnInit {
 
     this.accountService.changePassword(oldPassword, newPassword).subscribe(responseData => {
       console.log('ok');
+      this.passwordForm.get('current_password').reset();
+      this.passwordForm.get('new_pass').reset();
       this.error = 'Password changed successfully';
       this.success = true;
     }, error => {
